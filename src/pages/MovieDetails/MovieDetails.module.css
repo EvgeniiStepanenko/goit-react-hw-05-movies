@@ -1,0 +1,17 @@
+.thumb {
+    
+}
+.movie_info{
+    display: flex;
+    align-items: center;
+}
+
+.genre_list{
+    display:flex;
+    gap: 10px
+    ;
+}
+
+h2 {
+    margin-left: 40px;
+}
