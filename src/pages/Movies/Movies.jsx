@@ -6,12 +6,14 @@ import axios from 'axios';
 import { API_KEY, BASE_URL } from 'API/API';
 import { BiSearch } from 'react-icons/bi';
 import css from './Movie.module.css';
+import { useLocation } from 'react-router-dom/dist';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
 
   const [searchParams, setSearchParams] = useSearchParams({});
   const query = searchParams.get('query') ?? '';
+  const location = useLocation();
 
   async function getMovies() {
     const searchParams = new URLSearchParams({
@@ -73,7 +75,12 @@ const Movies = () => {
       <div>
         {movies.length !== 0 ? (
           movies.map(movie => (
-            <Link className={css.link} key={movie.id} to={`${movie.id}`}>
+            <Link
+              className={css.link}
+              key={movie.id}
+              to={`${movie.id}`}
+              state={{ from: location }}
+            >
               <div>
                 {/* <img
                   src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}

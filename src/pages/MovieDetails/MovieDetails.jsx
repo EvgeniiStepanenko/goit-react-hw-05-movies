@@ -1,13 +1,18 @@
 import { API_KEY, BASE_URL } from 'API/API';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import css from './MovieDetails.module.css';
+import { useLocation } from 'react-router-dom/dist';
+import { GoArrowLeft } from 'react-icons/go';
 
 const MovieDetails = () => {
   const { movieId } = useParams();
   const [movie, setMovie] = useState();
+  const location = useLocation();
+
+  const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
     async function getMovie() {
@@ -27,6 +32,14 @@ const MovieDetails = () => {
 
   return (
     <>
+      <div className={css.goback}>
+        <Link className={css.link} to={backLinkLocationRef.current}>
+          <button className={css.button} type="button">
+            <GoArrowLeft size="30px" />
+            GO BACK
+          </button>
+        </Link>
+      </div>
       <div className={css.movie_info}>
         <div className={css.thumb}>
           <h1>{movie.title}</h1>
